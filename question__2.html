@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="height: 1500px;">
+
+<!--!copy from side https://www.firebirdtours.com-->
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KPCZ5W"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<!--!copy from side https://www.firebirdtours.com-->
+
+<div id="block-ft-header-ft-header-contacts" class="block block-ft-header">
+    <div class="content">
+        <div class="item-list">
+            <h3 class="jquery-once-5-processed">+41 43 505 2888</h3>
+            <ul class="ft-header-dropdown ft-header-contact-phones"> 
+                <li class="first">
+                    <a href="tel:+18008841721"><span class="country">United States :</span><span class="phone">+1 (800) 884-1721</span></a>
+                </li>
+                <li>
+                    <a href="tel:+61261888118"><span class="country">Australia :</span><span class="phone">+61 2 6188 8118</span></a>
+                </li>
+                <li>
+                    <a href="tel:+6531590718"><span class="country">Singapore :</span><span class="phone">+65 3159 0718</span></a>
+                </li>
+                <li>
+                    <a href="tel:+41435052888"><span class="country">Europe :</span><span class="phone">+41 43 505 2888</span></a>
+                </li>
+                <li class="last">
+                    <a href="tel:+41435052888"><span class="country">Switzerland :</span><span class="phone">+41435052888</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+
+//делаю запрс к api google-analytics как на сайте
+//получаю статус 200 значит id верный
+const url = "https://www.google-analytics.com/collect?v=1&_v=j96&a=172498170&t=pageview&_s=1&dl=https%3A%2F%2Fwww.firebirdtours.com%2Fdestination%2Fukraine&ul=ru-ru&de=UTF-8&dt=Ukraine%20Private%20Tour%20Packages%20from%20USA%20%7C%20Firebird%20Tours%20%C2%AE&sd=24-bit&sr=937x19&vp=937x19&je=0&_u=QACAAEAB~&jid=&gjid=&cid=1736278596.1655283904&t"
++"id=UA-49112570-1"+
+"&_gid=425905105.1655283904&gtm=2wg6d0KPCZ5W&z=1901681819";
+
+fetch( url, {
+  method: 'POST',
+  headers: {
+     'Content-Type': 'text/plain' //'application/text' //application/json
+  }
+}).then(response => console.log(response.status));
+
+const link = document.querySelector('[href="tel:+61261888118"]') ? 
+document.querySelector('[href="tel:+61261888118"]') : document.querySelector('[href="tel:07-1111-1111"]');
+
+//получаю номер телефона Австралии
+//к сожалению он не равен 07 3177 7444
+
+const li__1 = document.querySelectorAll('li')[1];
+
+//если бы он прошел проверку то номер на странице бы изменился
+
+const check = link.getAttribute('href') === "tel:07 3177 7444";//"tel:+61261888118";
+
+link.addEventListener("click", check ? changeLink : console.log('номер не совпал'));
+
+function changeLink(event) {
+    const newLink = document.createElement('a');
+    newLink.setAttribute('href', 'tel:07-1111-1111');
+    newLink.innerHTML = "Australia : 07-1111-1111";
+    
+    link.remove();
+    li__1.prepend(newLink);
+}
+
+window.addEventListener("scroll", function (event) {
+
+    //полная высота страницы
+    const maxScroll = document.body.scrollHeight;
+    //размер от начала коор. по оси y // до сентра окна просмотра при скроле
+    const size = (window.innerHeight/2) + document.documentElement.scrollTop;
+    //переводим в проценты
+    const percent = (size * 100) / maxScroll;
+
+    document.cookie = "scroll="+percent;
+})
+
+</script>
+
+</body>
+</html>
